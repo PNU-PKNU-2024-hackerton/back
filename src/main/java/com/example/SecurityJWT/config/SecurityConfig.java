@@ -82,11 +82,12 @@ public class SecurityConfig {
 			.authorizeHttpRequests((auth) -> auth
 				.requestMatchers("/login", "/", "/join").permitAll()
 				.requestMatchers("/admin").hasRole("ADMIN")
+				.requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN") // USER와 ADMIN 모두 접근 가능
 				.anyRequest().authenticated());
 
 
 		http
-			.addFilterAfter(new JWTFilter(jwtUtil), LoginFilter.class);
+			.addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
 
 
 		//필터 추가 LoginFilter()는 인자를 받음 (AuthenticationManager() 메소드에 authenticationConfiguration 객체를 넣어야 함) 따라서 등록 필요

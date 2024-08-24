@@ -1,0 +1,41 @@
+package com.example.SecurityJWT.controller;
+
+import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.SecurityJWT.dto.UserResponseDto;
+import com.example.SecurityJWT.entity.UserEntity;
+import com.example.SecurityJWT.service.UserService;
+
+@RestController
+@RequestMapping("/user")
+
+public class UserController {
+	private final UserService userService;
+
+	public UserController(UserService userService){
+		this.userService = userService;
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getUser(@PathVariable("id") int id){
+		try{
+			Optional<UserEntity> userEntityOptional = userService.getUserById(id);
+			if(userEntityOptional.isPresent()){
+				UserEntity userEntity = userEntityOptional.get();
+				UserResponseDto userResponseDTO = new UserResponseDto(userEntity.getUsername(), userEntity.getRole());
+				return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
+			} else{
+				return new ResponseEntity<>("User Not Found", HttpStatus.NOT_FOUND);
+			}
+		}catch (Exception e){
+			return new ResponseEntity<>("Fail to getUser", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+}
