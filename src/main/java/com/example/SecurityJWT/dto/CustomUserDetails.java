@@ -2,18 +2,17 @@ package com.example.SecurityJWT.dto;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.SecurityJWT.entity.UserEntity;
 
-public class CustomUserDetails  implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
 	private final UserEntity userEntity;
 
-	public CustomUserDetails(UserEntity userEntity){
+	public CustomUserDetails(UserEntity userEntity) {
 		this.userEntity = userEntity;
 	}
 
@@ -43,7 +42,6 @@ public class CustomUserDetails  implements UserDetails {
 	public String getUsername() {
 		return userEntity.getUsername();
 	}
-
 
 	@Override
 	public boolean isAccountNonExpired() {

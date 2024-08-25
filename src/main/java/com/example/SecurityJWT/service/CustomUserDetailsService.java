@@ -16,7 +16,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	private final UserRepository userRepository;
 
-	public CustomUserDetailsService(UserRepository userRepository){
+	public CustomUserDetailsService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 
@@ -24,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<UserEntity> userData = userRepository.findByUsername(username);
 
-		if (userData.isPresent()){
+		if (userData.isPresent()) {
 			return new CustomUserDetails(userData.orElse(null));
 		}
 

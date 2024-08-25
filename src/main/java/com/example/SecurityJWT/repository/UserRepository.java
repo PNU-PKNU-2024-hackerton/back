@@ -1,11 +1,10 @@
 package com.example.SecurityJWT.repository;
 
-
 import java.util.Optional;
 
-import com.example.SecurityJWT.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.example.SecurityJWT.entity.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 

@@ -21,13 +21,11 @@ public class MainController {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-
 		//사용자 role받아오기
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		Iterator<? extends GrantedAuthority> iter = authorities.iterator();
 		GrantedAuthority auth = iter.next();
 		String role = auth.getAuthority();
-
 
 		return "Main Controller" + username + role;
 	}
