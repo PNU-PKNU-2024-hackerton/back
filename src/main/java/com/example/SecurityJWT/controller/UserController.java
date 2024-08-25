@@ -38,4 +38,15 @@ public class UserController {
 			return new ResponseEntity<>("Fail to getUser", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@GetMapping("/me")
+	public ResponseEntity<?> getMyInfo() {
+		try {
+			UserEntity myInfo = userService.getMyInfo();
+			UserResponseDto userResponseDto = new UserResponseDto(myInfo.getUsername(), myInfo.getRole());
+			return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
+		}catch (Exception e){
+			return new ResponseEntity<>("Fail to get myInfo", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

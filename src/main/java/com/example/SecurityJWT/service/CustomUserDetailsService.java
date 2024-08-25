@@ -1,5 +1,7 @@
 package com.example.SecurityJWT.service;
 
+import java.util.Optional;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,10 +22,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity userData = userRepository.findByUsername(username);
+		Optional<UserEntity> userData = userRepository.findByUsername(username);
 
-		if (userData != null){
-			return new CustomUserDetails(userData);
+		if (userData.isPresent()){
+			return new CustomUserDetails(userData.orElse(null));
 		}
 
 		return null;
